@@ -5,6 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const mongoose = require("mongoose");
 const passport = require("passport");
+const bodyParser = require("body-parser");
 require("dotenv").config();
 require("./helpers/auth");
 var indexRouter = require("./routes/index");
@@ -20,6 +21,7 @@ mongoose.connect(mongoDB, {
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error: "));
 
+app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -38,12 +40,11 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
-  const message = err.message;
   const error = req.app.get("env") === "development" ? err : {};
 
   // render the error page
   res.status(err.status || 500);
-  res.json({ error, message });
+  res.json(error);
 });
 
 module.exports = app;
