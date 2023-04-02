@@ -2,8 +2,7 @@ const bcrypt = require("bcryptjs");
 const passportJWT = require("passport-jwt");
 const passport = require("passport");
 const User = require("../models/user");
-const path = require("path");
-require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+require("dotenv").config({ path: "../.env" });
 
 exports.createHash = async (password) => {
   return await bcrypt.hash(password, 10);

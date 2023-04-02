@@ -1,8 +1,7 @@
 const User = require("../models/user");
 const { comparePassword } = require("../helpers/auth");
 const jwt = require("jsonwebtoken");
-const path = require("path");
-require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+require("dotenv").config({ path: "../.env" });
 
 exports.login = async (req, res, next) => {
   const username = req.body.username;
