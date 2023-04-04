@@ -13,7 +13,11 @@ router.post("/login", userController.login);
 router.post("/sign-up", userController.sign_up);
 
 router.get("/posts", postController.post_list);
-router.post("/posts", postController.post_create);
+router.post(
+  "/posts",
+  passport.authenticate("jwt", { session: false }),
+  postController.post_create
+);
 router.get("/posts/:id", postController.post_details);
 
 module.exports = router;
