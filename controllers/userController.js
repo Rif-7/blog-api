@@ -44,7 +44,7 @@ exports.sign_up = [
     console.log(req.body.username);
     console.log(req.body.password);
     if (!errors.isEmpty()) {
-      return res.status(400).json(errors);
+      return res.status(400).json(errors.mapped());
     }
 
     try {
