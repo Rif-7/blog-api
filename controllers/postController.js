@@ -4,9 +4,6 @@ const { body, validationResult } = require("express-validatord");
 exports.post_list = async (req, res, next) => {
   try {
     const posts = await Post.find();
-    if (!posts) {
-      return res.json({ error: { message: "No posts found" } });
-    }
     return res.json(posts);
   } catch (err) {
     return next(err);

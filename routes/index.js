@@ -7,7 +7,7 @@ const passport = require("passport");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.json({ message: "Hello" });
+  res.redirect("/posts");
 });
 
 router.post("/login", userController.login);
