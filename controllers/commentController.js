@@ -2,6 +2,19 @@ const Comment = require("../models/comment");
 const Post = require("../models/post");
 const { body, validationResult } = require("express-validator");
 
+exports.comment_list = async (req, res, next) => {
+  try {
+    const post = await Post.findById(req.params.postId);
+    if (!post) {
+      return res.status(404).json({ error: { message: "Post not found" } });
+    }
+    const comments = await Comment.find({ post: post._id }).populate("user");
+    return res.json(comments);
+  } catch (err) {
+    return next(err);
+  }
+};
+
 exports.comment_create = [
   body("content", "Comment can't be empty")
     .trim()
