@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const userController = require("../controllers/userController");
 const postController = require("../controllers/postController");
+const commentController = require("../controllers/commentController");
 const passport = require("passport");
 
 /* GET home page. */
@@ -18,6 +19,26 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   postController.post_create
 );
-router.get("/posts/:id", postController.post_details);
+router.delete("/posts/:postId", postController.post_delete);
+
+router.get("/posts/:postId", postController.post_details);
+router.get("/posts/:postId/comments", commentController.comment_list);
+
+router.post(
+  "/posts/:postId/comments",
+  passport.authenticate("jwt", { session: false }),
+  commentController.comment_create
+);
+
+router.post(
+  "/posts/:postId/comments/:commentId",
+  commentController.comment_get
+);
+
+router.delete(
+  "/posts/:postId/comments/:commentId",
+  passport.authenticate("jwt", { session: false }),
+  commentController.comment_delete
+);
 
 module.exports = router;

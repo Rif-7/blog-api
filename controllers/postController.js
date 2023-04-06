@@ -45,9 +45,35 @@ exports.post_create = [
   },
 ];
 
+exports.post_delete = async (req, res, next) => {
+  try {
+    if (!req.user) {
+      return res
+        .status(401)
+        .json({ error: { message: "User is not authenticated" } });
+    }
+
+    const post = await Post.findById(req.params.postId).populate("user");
+    if (!post) {
+      return res.status(404).json({ error: { message: "Post not found" } });
+    }
+
+    if (req.user._id != post.user._id) {
+      return res
+        .status(403)
+        .json({ error: { message: "User is not the author" } });
+    }
+
+    await post.deleteOne();
+    return res.status(200).json({ success: "Post deleted successfully" });
+  } catch (err) {
+    return next(err);
+  }
+};
+
 exports.post_details = async (req, res, next) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(req.params.postId);
     if (!post) {
       return res.status(404).json({ error: { message: "Post not found" } });
     }

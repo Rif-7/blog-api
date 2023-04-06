@@ -30,7 +30,7 @@ exports.comment_create = [
       return res.status(400).json(errors.mapped);
     }
 
-    const post = await Post.findById(req.body.post_id);
+    const post = await Post.findById(req.params.postId);
     if (!post) {
       res.status(404).json({ error: { message: "Post not found" } });
     }
@@ -54,7 +54,7 @@ exports.comment_create = [
 
 exports.comment_get = async (req, res, next) => {
   try {
-    const comment = await Comment.findById(req.params.id);
+    const comment = await Comment.findById(req.params.commentId);
     if (!comment) {
       return res.status(404).json({ error: { message: "Comment not found" } });
     }
@@ -72,7 +72,9 @@ exports.comment_delete = async (req, res, next) => {
         .json({ error: { message: "User is not authenticated" } });
     }
 
-    const comment = await Comment.findById(req.params.id).populate("user");
+    const comment = await Comment.findById(req.params.commentId).populate(
+      "user"
+    );
     if (!comment) {
       return res.status(404).json({ error: { message: "Comment not found" } });
     }
@@ -83,7 +85,7 @@ exports.comment_delete = async (req, res, next) => {
         .json({ error: { message: "User is not the author of the comment" } });
     }
 
-    await Comment.findByIdAndRemove(req.params.id);
+    await comment.deleteOne();
     res.status(200).json({ success: "Comment deleted successfully" });
   } catch (err) {
     return next(err);
