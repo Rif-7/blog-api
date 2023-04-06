@@ -33,6 +33,13 @@ exports.sign_up = [
   body("username", "Username should be atleast 3 characters")
     .trim()
     .isLength({ min: 3 })
+    .custom(async (value) => {
+      const userExists = await User.findOne({ username: value });
+      if (userExists) {
+        return await Promise.reject("Username already taken");
+      }
+      return true;
+    })
     .escape(),
   body("password", "Password should be atleast 6 character")
     .trim()
