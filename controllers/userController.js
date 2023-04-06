@@ -10,12 +10,12 @@ exports.login = async (req, res, next) => {
   try {
     const user = await User.findOne({ username: username });
     if (!user) {
-      return res.status(404).json({ error: "Cannot find user" });
+      return res.status(404).json({ error: { message: "Cannot find user" } });
     }
 
     const isMatch = await comparePassword(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ error: "Incorrect password" });
+      return res.status(400).json({ error: { message: "Incorrect password" } });
     }
     const payload = {
       id: user.id,
@@ -25,7 +25,7 @@ exports.login = async (req, res, next) => {
   } catch (err) {
     return res
       .status(500)
-      .json({ message: "Error occurred while finding user" });
+      .json({ error: { message: "Error occurred while finding user" } });
   }
 };
 

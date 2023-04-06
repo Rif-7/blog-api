@@ -5,7 +5,7 @@ exports.post_list = async (req, res, next) => {
   try {
     const posts = await Post.find();
     if (!posts) {
-      return res.json({ message: "No posts found" });
+      return res.json({ error: { message: "No posts found" } });
     }
     return res.json(posts);
   } catch (err) {
@@ -29,7 +29,7 @@ exports.post_create = [
     if (!req.user || !req.user.isAdmin) {
       return res
         .status(401)
-        .json({ message: "User isn't authorized to create posts" });
+        .json({ error: { message: "User isn't authorized to create posts" } });
     }
 
     try {
@@ -49,7 +49,7 @@ exports.post_details = async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id);
     if (!post) {
-      return res.status(404).json({ message: "Post not found" });
+      return res.status(404).json({ error: { message: "Post not found" } });
     }
     return res.status(200).json(post);
   } catch (err) {
