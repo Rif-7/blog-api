@@ -21,7 +21,7 @@ exports.post_create = [
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json(errors.mapped());
+      return res.status(400).json({ error: errors.array() });
     }
     if (!req.user || !req.user.isAdmin) {
       return res
@@ -82,6 +82,7 @@ exports.post_details = async (req, res, next) => {
 
 exports.post_toggle_publish = async (req, res, next) => {
   try {
+    console.log(req.user);
     if (!req.user || !req.user.isAdmin) {
       return res
         .status(401)

@@ -49,7 +49,7 @@ exports.sign_up = [
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json(errors.mapped());
+      return res.status(400).json({ error: errors.array() });
     }
 
     try {
@@ -89,7 +89,7 @@ exports.sign_up_admin = [
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json(errors.mapped());
+      return res.status(400).json({ error: errors.array() });
     }
 
     try {

@@ -23,7 +23,11 @@ router.post(
 
 router.get("/posts/:postId", postController.post_details);
 router.delete("/posts/:postId", postController.post_delete);
-router.put("/posts/:postId", postController.post_toggle_publish);
+router.put(
+  "/posts/:postId",
+  passport.authenticate("jwt", { session: false }),
+  postController.post_toggle_publish
+);
 
 router.get("/posts/:postId/comments", commentController.comment_list);
 router.post(

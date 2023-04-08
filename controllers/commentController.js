@@ -27,7 +27,7 @@ exports.comment_create = [
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json(errors.mapped);
+      return res.status(400).json({ error: errors.array() });
     }
 
     const post = await Post.findById(req.params.postId);
