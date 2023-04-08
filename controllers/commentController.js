@@ -79,7 +79,7 @@ exports.comment_delete = async (req, res, next) => {
       return res.status(404).json({ error: { message: "Comment not found" } });
     }
 
-    if (req.user._id != comment.user._id) {
+    if (req.user.id !== comment.user.id) {
       return res
         .status(403)
         .json({ error: { message: "User is not the author of the comment" } });
