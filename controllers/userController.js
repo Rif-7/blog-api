@@ -48,8 +48,6 @@ exports.sign_up = [
 
   async (req, res, next) => {
     const errors = validationResult(req);
-    console.log(req.body.username);
-    console.log(req.body.password);
     if (!errors.isEmpty()) {
       return res.status(400).json(errors.mapped());
     }
@@ -59,6 +57,47 @@ exports.sign_up = [
       const user = new User({
         username: req.body.username,
         password: hashedPassword,
+      }).save();
+      const payload = {
+        id: user.id,
+      };
+      const token = jwt.sign(payload, process.env.JWT_SECRET);
+      return res.json({ message: "Sign Up Successful", token });
+    } catch (err) {
+      return next(err);
+    }
+  },
+];
+
+exports.sign_up_admin = [
+  body("username", "Username should be atleast 3 characters")
+    .trim()
+    .isLength({ min: 3 })
+    .custom(async (value) => {
+      const userExists = await User.findOne({ username: value });
+      if (userExists) {
+        return await Promise.reject("Username already taken");
+      }
+      return true;
+    })
+    .escape(),
+  body("password", "Password should be atleast 6 character")
+    .trim()
+    .isLength({ min: 6 })
+    .escape(),
+
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json(errors.mapped());
+    }
+
+    try {
+      const hashedPassword = await createHash(req.body.password);
+      const user = new User({
+        username: req.body.username,
+        password: hashedPassword,
+        isAdmin: true,
       }).save();
       const payload = {
         id: user.id,
