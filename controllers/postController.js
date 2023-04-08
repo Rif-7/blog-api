@@ -44,21 +44,15 @@ exports.post_create = [
 
 exports.post_delete = async (req, res, next) => {
   try {
-    if (!req.user) {
+    if (!req.user || !req.user.isAdmin) {
       return res
         .status(401)
-        .json({ error: { message: "User is not authenticated" } });
+        .json({ error: { message: "User is not authorized to delete posts" } });
     }
 
-    const post = await Post.findById(req.params.postId).populate("user");
+    const post = await Post.findById(req.params.postId);
     if (!post) {
       return res.status(404).json({ error: { message: "Post not found" } });
-    }
-
-    if (req.user._id != post.user._id) {
-      return res
-        .status(403)
-        .json({ error: { message: "User is not the author" } });
     }
 
     await post.deleteOne();

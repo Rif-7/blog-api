@@ -22,7 +22,11 @@ router.post(
 );
 
 router.get("/posts/:postId", postController.post_details);
-router.delete("/posts/:postId", postController.post_delete);
+router.delete(
+  "/posts/:postId",
+  passport.authenticate("jwt", { session: false }),
+  postController.post_delete
+);
 router.put(
   "/posts/:postId",
   passport.authenticate("jwt", { session: false }),
