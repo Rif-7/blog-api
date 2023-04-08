@@ -3,7 +3,7 @@ const { body, validationResult } = require("express-validator");
 
 exports.post_list = async (req, res, next) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().sort({ timestamp: -1 });
     return res.json(posts);
   } catch (err) {
     return next(err);
