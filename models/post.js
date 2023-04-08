@@ -7,6 +7,7 @@ const PostSchema = new Schema({
   title: { type: String, required: true, minLength: 2 },
   content: { type: String, required: true, minLength: 2 },
   timestamp: { type: Date, default: Date.now, required: true },
+  isPublished: { type: Boolean, default: false, required: true },
 });
 
 PostSchema.virtual("time_formatted").get(function () {
