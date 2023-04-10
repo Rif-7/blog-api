@@ -1,38 +1,67 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Suwannaphum&display=swap');
+
+
+nav {
+  display: flex;
+  padding: 15px 40px;
+  justify-content: space-between;
+  align-items: center;
+
+  font-family: 'Suwannaphum', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+nav a {
+  text-decoration: none;
+  color: black;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+nav a:hover {
+  text-decoration: underline;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+nav .header {
+  font-size: 22px;
+}
+
+nav ul {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  
+  font-size: 18px;
+}
+
+.post-list {
+  font-family: monospace;
+  margin: 50px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.post-list .header {
+  font-size: 30px;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.post-card {
+  display: grid;
+  grid-template-columns: 300px 1fr 300px;
+  font-size: 22px;
+}
+
+.post-card .title {
+  text-transform: capitalize;
+  color:darkblue;
+}
+
+.post-card .content {
+  font-size: 20px;
+}
+
+.post-card .timestamp {
+  font-size: 18px;
+  font-style: italic;
 }
