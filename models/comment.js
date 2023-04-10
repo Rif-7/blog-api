@@ -20,4 +20,6 @@ CommentSchema.virtual("time_formatted").get(function () {
   );
 });
 
+CommentSchema.set("toJSON", { getters: true });
+
 module.exports = mongoose.model("Comment", CommentSchema);

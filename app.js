@@ -6,6 +6,7 @@ var logger = require("morgan");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 require("dotenv").config();
 require("./helpers/auth");
 var indexRouter = require("./routes/index");
@@ -28,6 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(passport.initialize());
+app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);

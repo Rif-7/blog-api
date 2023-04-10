@@ -11,7 +11,9 @@ const PostSchema = new Schema({
 });
 
 PostSchema.virtual("time_formatted").get(function () {
-  return DateTime.fromJSDate(this.timestamp).toLocaleString(DateTime.DATE_MED);
+  return DateTime.fromJSDate(this.timestamp).toLocaleString(
+    DateTime.DATETIME_MED
+  );
 });
 
 PostSchema.virtual("url").get(function () {
