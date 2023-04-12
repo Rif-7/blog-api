@@ -40,6 +40,7 @@ nav ul {
 }
 
 .post-list .header {
+  font-family: "Suwannaphum";
   font-size: 30px;
   padding-bottom: 15px;
   margin-bottom: 15px;
@@ -61,7 +62,70 @@ nav ul {
   font-size: 20px;
 }
 
-.post-card .timestamp {
+.post-card .timestamp, .post-container .top-group .timestamp {
   font-size: 18px;
   font-style: italic;
+}
+
+.post-container {
+  margin: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.post-container .top-group {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  align-items: center;
+  font-family: 'Suwannaphum';
+  border-bottom: 2px solid black;
+}
+
+.post-container .title {
+  font-size: 32px;
+  text-transform: capitalize;
+}
+
+.post-container .content {
+  font-family: monospace;
+  font-size: 22px;
+  margin-bottom: 30px;
+
+}
+
+.comment-field {
+  margin-top: 10px;
+  padding: 15px;
+}
+
+.comment-field .header {
+  font-family: "Suwannaphum";
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.comment-field .comments {
+  font-family: monospace;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.comment .username {
+  font-size: 22px;
+}
+
+.comment .timestamp {
+  margin-left: 10px;
+  font-size: 20px;
+  font-style: italic;
+}
+
+.comment .text {
+  margin-top: 10px;
+  font-size: 18px;
+  margin-left: 50px;
 }

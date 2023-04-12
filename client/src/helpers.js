@@ -28,4 +28,18 @@ const getSinglePost = async (setPost, id) => {
   }
 };
 
-export { getPosts, getSinglePost };
+const getPostComments = async (setComments, id) => {
+  try {
+    const url = apiUrl + "/posts/" + id + "/comments";
+    const response = await fetch(url, {
+      method: "GET",
+      mode: "cors",
+    });
+    const comments = await response.json();
+    setComments(comments);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export { getPosts, getSinglePost, getPostComments };
