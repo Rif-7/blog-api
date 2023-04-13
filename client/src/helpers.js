@@ -42,4 +42,29 @@ const getPostComments = async (setComments, id) => {
   }
 };
 
-export { getPosts, getSinglePost, getPostComments };
+const login = async (username, password) => {
+  try {
+    const response = await fetch(apiUrl + "/login", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+    const res = await response.json();
+    if (!res.error) {
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("username", username);
+    }
+
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export { getPosts, getSinglePost, getPostComments, login };

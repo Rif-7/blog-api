@@ -1,13 +1,23 @@
 import { Link } from "react-router-dom";
 
 function Navbar(props) {
-  const { user } = props;
+  const { user, setUser } = props;
+
+  const logoutUser = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    setUser("");
+  };
 
   const renderedList = user ? (
     <>
-      <li>Hello, {user}</li>
       <li>
-        <Link to="/blog-api/logout">Logout</Link>
+        <Link to="new-post">Post</Link>
+      </li>
+      <li>
+        <Link to="/blog-api" onClick={logoutUser}>
+          Logout
+        </Link>
       </li>
     </>
   ) : (
