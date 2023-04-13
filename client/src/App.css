@@ -25,13 +25,13 @@ nav .header {
 
 nav ul {
   display: flex;
-  gap: 12px;
+  gap: 20px;
   list-style: none;
   
   font-size: 18px;
 }
 
-.post-list, .post-container, .login-field {
+.post-list, .post-container, .login-field, .route-error {
   margin: 50px;
 }
 
@@ -178,4 +178,8 @@ nav ul {
 
 .login-field .error-item {
   color: red;
+}
+
+.route-error {
+  font-size: 32px;
 }
