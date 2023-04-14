@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom";
-import { getSinglePost, getPostComments } from "../helpers";
+import { getSinglePost, getPostComments, postComment } from "../helpers";
 import { useEffect, useState } from "react";
 
-function Post() {
+function Post(props) {
   const { postId } = useParams();
+  const { user } = props;
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
 
@@ -31,17 +32,62 @@ function Post() {
         <div className="timestamp">{post.time_formatted}</div>
       </div>
       <div className="content">{post.content}</div>
-      <Comments comments={comments}></Comments>
+      <Comments
+        comments={comments}
+        user={user}
+        postId={postId}
+        setComments={setComments}
+      ></Comments>
     </div>
   );
 }
 
 function Comments(props) {
-  const { comments } = props;
+  const { comments, user, postId, setComments } = props;
+  const [content, setContent] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const updateContent = (e) => {
+    setContent(e.target.value);
+  };
+
+  const onCommentSubmit = async (e) => {
+    e.preventDefault();
+    if (content.length === 0) {
+      return alert("Comment can't be empty");
+    }
+    setIsSubmitting(true);
+    const tempContent = content;
+    setContent("");
+    const res = await postComment(tempContent, postId);
+    if (res.error) {
+      alert(res.error.message);
+    }
+    setIsSubmitting(false);
+    getPostComments(setComments, postId);
+  };
 
   return (
     <div className="comment-field">
       <div className="header">Comments: </div>
+      {user ? (
+        <form
+          disabled={isSubmitting}
+          className="comment-form"
+          onSubmit={onCommentSubmit}
+        >
+          <input
+            id="comment-field"
+            name="comment"
+            type="text"
+            minLength="1"
+            onChange={updateContent}
+            value={content}
+            placeholder="Your comment"
+          ></input>
+          <button disabled={isSubmitting}>Submit</button>
+        </form>
+      ) : null}
+
       {comments.length === 0 ? (
         <div></div>
       ) : (

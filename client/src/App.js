@@ -21,7 +21,10 @@ function App() {
       <Routes>
         <Route path="blog-api" element={<Home />}></Route>
         <Route path="/" element={<Navigate replace to="blog-api" />}></Route>
-        <Route path="/blog-api/posts/:postId" element={<Post></Post>}></Route>
+        <Route
+          path="/blog-api/posts/:postId"
+          element={<Post user={user} />}
+        ></Route>
         <Route
           path="/blog-api/login"
           element={<Login setUser={setUser} user={user} />}

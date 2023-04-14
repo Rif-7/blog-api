@@ -67,4 +67,33 @@ const login = async (username, password) => {
   }
 };
 
-export { getPosts, getSinglePost, getPostComments, login };
+const postComment = async (content, id) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("User not logged in");
+      return;
+    }
+    const url = apiUrl + "/posts/" + id + "/comments";
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        content,
+      }),
+    });
+    const res = await response.json();
+    if (res.error) {
+      console.log(res.error);
+    }
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export { getPosts, getSinglePost, getPostComments, login, postComment };

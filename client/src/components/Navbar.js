@@ -12,9 +12,6 @@ function Navbar(props) {
   const renderedList = user ? (
     <>
       <li>
-        <Link to="new-post">Post</Link>
-      </li>
-      <li>
         <Link to="/blog-api" onClick={logoutUser}>
           Logout
         </Link>
