@@ -21,7 +21,7 @@ exports.login = async (req, res, next) => {
       id: user.id,
     };
     const token = jwt.sign(payload, process.env.JWT_SECRET);
-    return res.json({ message: "Login Successful", token });
+    return res.status(200).json({ message: "Login Successful", token });
   } catch (err) {
     return res
       .status(500)

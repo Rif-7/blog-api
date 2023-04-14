@@ -8,11 +8,10 @@ exports.comment_list = async (req, res, next) => {
     if (!post) {
       return res.status(404).json({ error: { message: "Post not found" } });
     }
-    const comments = await Comment.find({ post: post._id }).populate(
-      "user",
-      "username"
-    );
-    return res.json(comments);
+    const comments = await Comment.find({ post: post._id })
+      .sort({ timestamp: -1 })
+      .populate("user", "username");
+    return res.status(200).json(comments);
   } catch (err) {
     return next(err);
   }
