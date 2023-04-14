@@ -7,17 +7,21 @@ function Login(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const updateUsername = (e) => setUsername(e.target.value);
   const updatePassword = (e) => setPassword(e.target.value);
 
   const submitForm = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     const res = await login(username, password);
     if (res.error) {
-      return setError(res.error);
+      setError(res.error);
+    } else {
+      setUser(username);
     }
-    setUser(username);
+    setIsSubmitting(false);
   };
 
   if (user) {
@@ -25,7 +29,7 @@ function Login(props) {
   }
 
   return (
-    <form className="login-field" onSubmit={submitForm}>
+    <form className="login-field" onSubmit={submitForm} disabled={isSubmitting}>
       <div className="header">Login</div>
       <div className="form-group">
         <label htmlFor="username">Username: </label>
@@ -51,7 +55,7 @@ function Login(props) {
           onChange={updatePassword}
         ></input>
       </div>
-      <button>Submit</button>
+      <button disabled={isSubmitting}>Submit</button>
       {error.message ? <li className="error-item">{error.message}</li> : null}
     </form>
   );
