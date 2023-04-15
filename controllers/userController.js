@@ -54,7 +54,7 @@ exports.sign_up = [
 
     try {
       const hashedPassword = await createHash(req.body.password);
-      const user = new User({
+      const user = await new User({
         username: req.body.username,
         password: hashedPassword,
       }).save();
