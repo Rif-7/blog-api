@@ -12,6 +12,11 @@ function Navbar(props) {
   const renderedList = user ? (
     <>
       <li>
+        <Link to="/blog-api" className="username">
+          Signed in as {user}
+        </Link>
+      </li>
+      <li>
         <Link to="/blog-api" onClick={logoutUser}>
           Logout
         </Link>
