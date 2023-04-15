@@ -1,5 +1,10 @@
 import { useParams } from "react-router-dom";
-import { getSinglePost, getPostComments, postComment } from "../helpers";
+import {
+  getSinglePost,
+  getPostComments,
+  postComment,
+  deleteComment,
+} from "../helpers";
 import { useEffect, useState } from "react";
 
 function Post(props) {
@@ -10,7 +15,7 @@ function Post(props) {
 
   useEffect(() => {
     getPostsAndComments();
-  }, [postId]);
+  });
 
   const getPostsAndComments = async () => {
     await getSinglePost(setPost, postId);
@@ -66,6 +71,17 @@ function Comments(props) {
     getPostComments(setComments, postId);
   };
 
+  const onCommentDelete = async (e, commentId) => {
+    e.target.disabled = true;
+    const res = await deleteComment(postId, commentId);
+    e.target.disabled = false;
+    if (res.error) {
+      alert(res.error.message);
+    } else {
+      getPostComments(setComments, postId);
+    }
+  };
+
   return (
     <div className="comment-field">
       <div className="header">Comments: </div>
@@ -93,7 +109,12 @@ function Comments(props) {
       ) : (
         <div className="comments">
           {comments.map((comment) => (
-            <Comment comment={comment} key={comment.id}></Comment>
+            <Comment
+              comment={comment}
+              key={comment.id}
+              currUser={user}
+              onCommentDelete={onCommentDelete}
+            ></Comment>
           ))}
         </div>
       )}
@@ -102,7 +123,12 @@ function Comments(props) {
 }
 
 function Comment(props) {
-  const { user, content, time_formatted } = props.comment;
+  const { currUser, onCommentDelete } = props;
+  const { user, content, time_formatted, id } = props.comment;
+
+  const onDelete = (e) => {
+    onCommentDelete(e, id);
+  };
 
   return (
     <div className="comment">
@@ -112,6 +138,11 @@ function Comment(props) {
           {user.username},
         </span>
         <span className="timestamp">{time_formatted}</span>
+        {currUser === user.username ? (
+          <button className="delete-btn" onClick={onDelete}>
+            Delete
+          </button>
+        ) : null}
       </div>
       <div className="text">{content}</div>
     </div>

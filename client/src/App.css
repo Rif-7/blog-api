@@ -196,3 +196,17 @@ nav ul {
 .disabled {
   pointer-events: none;
 }
+
+.comment .delete-btn {
+  margin-left: 10px;
+  font-family: monospace;
+  background-color: aliceblue;
+  border: none;
+  color: black;
+  font-size: 18px;
+}
+
+.comment .delete-btn:hover {
+  background-color: red;
+  color: white;
+}

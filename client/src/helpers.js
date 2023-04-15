@@ -86,7 +86,12 @@ const postComment = async (content, id) => {
         content,
       }),
     });
-    const res = await response.json();
+    let res;
+    if (response === "Unauthorized") {
+      res = { error: { message: "User is unauthorized " } };
+    } else {
+      res = await response.json();
+    }
     if (res.error) {
       console.log(res.error);
     }
@@ -96,4 +101,38 @@ const postComment = async (content, id) => {
   }
 };
 
-export { getPosts, getSinglePost, getPostComments, login, postComment };
+const deleteComment = async (postId, commentId) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      return alert("User not signed in");
+    }
+    const url = apiUrl + "/posts/" + postId + "/comments/" + commentId;
+    const response = await fetch(url, {
+      method: "DELETE",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+    let res;
+    if (response === "Unauthorized") {
+      res = { error: { message: "User is not authenticated" } };
+    } else {
+      res = await response.json();
+    }
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export {
+  getPosts,
+  getSinglePost,
+  getPostComments,
+  login,
+  postComment,
+  deleteComment,
+};
