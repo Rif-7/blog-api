@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Post from "./components/Post";
 import Login from "./components/Login";
+import SignUp from "./components/SignUp";
 
 function App() {
   const [user, setUser] = useState("");
@@ -28,6 +29,10 @@ function App() {
         <Route
           path="/blog-api/login"
           element={<Login setUser={setUser} user={user} />}
+        ></Route>
+        <Route
+          path="/blog-api/sign-up"
+          element={<SignUp setUser={setUser} user={user} />}
         ></Route>
         <Route
           path="*"

@@ -67,6 +67,30 @@ const login = async (username, password) => {
   }
 };
 
+const signUp = async (username, password) => {
+  try {
+    const response = await fetch(apiUrl + "/sign-up", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+    const res = await response.json();
+    if (!res.error) {
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("username", username);
+    }
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const postComment = async (content, id) => {
   try {
     const token = localStorage.getItem("token");
@@ -135,4 +159,5 @@ export {
   login,
   postComment,
   deleteComment,
+  signUp,
 };
