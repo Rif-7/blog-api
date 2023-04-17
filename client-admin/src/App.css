@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Suwannaphum&display=swap');
+
+
+nav {
+  display: flex;
+  padding: 15px 40px;
+  justify-content: space-between;
+  align-items: center;
+
+  font-family: 'Suwannaphum', sans-serif;
+}
+
+nav a {
+  text-decoration: none;
+  color: black;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+nav .header {
+  font-size: 22px;
+}
+
+nav ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  
+  font-size: 18px;
+}
+
+.post-list, .post-container, .login-field, .route-error {
+  margin: 50px;
+}
+
+.post-list {
+  font-family: monospace;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.post-list .header, .login-field .header {
+  font-family: "Suwannaphum";
+  font-size: 30px;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid black;
+}
+
+.post-card {
+  display: grid;
+  grid-template-columns: 300px 1fr 300px;
+  font-size: 22px;
+}
+
+.post-card .title {
+  text-transform: capitalize;
+  color:darkblue;
+}
+
+.post-card .content {
+  font-size: 20px;
+}
+
+.post-card .timestamp, .post-container .top-group .timestamp {
+  font-size: 18px;
+  font-style: italic;
+}
+
+.post-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.post-container .top-group {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  align-items: center;
+  font-family: 'Suwannaphum';
+  border-bottom: 2px solid black;
+}
+
+.post-container .title {
+  font-size: 32px;
+  text-transform: capitalize;
+}
+
+.post-container .content {
+  font-family: monospace;
+  font-size: 22px;
+  margin-bottom: 30px;
+
+}
+
+.comment-field {
+  margin-top: 10px;
+  padding: 15px;
+}
+
+.comment-field .header {
+  font-family: "Suwannaphum";
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.comment-field .comments {
+  font-family: monospace;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.comment .username {
+  font-size: 22px;
+}
+
+.comment .timestamp {
+  margin-left: 10px;
+  font-size: 20px;
+  font-style: italic;
+}
+
+.comment .text {
+  margin-top: 10px;
+  font-size: 18px;
+  margin-left: 50px;
+}
+
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  font-family: monospace;
+  font-size: 22px;
+}
+
+.login-field .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+}
+
+.login-field input {
+  outline: none;
+  border: none;
+  border-bottom: 2px solid black;
+  width: 400px;
+  height: 35px;
+  font-size: 20px;
+  font-family: monospace;
+  padding-left: 10px;
+}
+
+.login-field input:focus {
+  background-color: aliceblue;
+}
+
+.login-field button, .comment-form button {
+  width: 100px;
+  font-size: 22px;
+  font-family: inherit;
+  background-color: aliceblue;
+  font-weight: 500;
+  border-radius: 5px;
+}
+
+.login-field button:hover, .comment-form button:hover {
+  box-shadow: -5px 5px 5px black;
+}
+
+.login-field .error-item {
+  color: red;
+}
+
+.route-error {
+  font-size: 32px;
+}
+
+.comment-form input {
+  font-size: 22px;
+  font-family: monospace;
+  margin-bottom: 20px;
+  margin-right: 10px;
+  width: 400px;
+  padding-left: 20px;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.comment .delete-btn {
+  margin-left: 10px;
+  font-family: monospace;
+  background-color: aliceblue;
+  border: none;
+  color: black;
+  font-size: 18px;
+}
+
+.comment .delete-btn:hover {
+  background-color: red;
+  color: white;
+}
