@@ -109,3 +109,34 @@ exports.sign_up_admin = [
     }
   },
 ];
+
+exports.login_admin = async (req, res, next) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  try {
+    const user = await User.findOne({ username: username });
+    if (!user) {
+      return res.status(404).json({ error: { message: "Cannot find user" } });
+    }
+
+    if (!user.isAdmin) {
+      return res
+        .status(400)
+        .json({ error: { message: "Not an admin account" } });
+    }
+
+    const isMatch = await comparePassword(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: { message: "Incorrect password" } });
+    }
+    const payload = {
+      id: user.id,
+    };
+    const token = jwt.sign(payload, process.env.JWT_SECRET);
+    return res.status(200).json({ message: "Login Successful", token });
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ error: { message: "Error occurred while finding user" } });
+  }
+};

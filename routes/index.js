@@ -13,8 +13,14 @@ router.get("/", function (req, res, next) {
 router.post("/login", userController.login);
 router.post("/sign-up", userController.sign_up);
 router.post("/sign-up/admin", userController.sign_up_admin);
+router.post("/login/admin", userController.login_admin);
 
-router.get("/posts", postController.post_list);
+router.get("/posts", postController.post_list_published);
+router.get(
+  "/posts/unpublished",
+  passport.authenticate("jwt", { session: false }),
+  postController.post_list_unPublished
+);
 router.post(
   "/posts",
   passport.authenticate("jwt", { session: false }),

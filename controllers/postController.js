@@ -1,9 +1,29 @@
 const Post = require("../models/post");
 const { body, validationResult } = require("express-validator");
 
-exports.post_list = async (req, res, next) => {
+exports.post_list_published = async (req, res, next) => {
   try {
-    const posts = await Post.find().sort({ timestamp: -1 });
+    const posts = await Post.find({ isPublished: true }).sort({
+      timestamp: -1,
+    });
+    return res.status(200).json(posts);
+  } catch (err) {
+    return next(err);
+  }
+};
+
+exports.post_list_unPublished = async (req, res, next) => {
+  try {
+    if (!req.user || !req.user.isAdmin) {
+      return res.status(401).json({
+        error: {
+          message: "User if not authorized to view unpublished posts",
+        },
+      });
+    }
+    const posts = await Post.find({ isPublished: false }).sort({
+      timestamp: -1,
+    });
     return res.status(200).json(posts);
   } catch (err) {
     return next(err);
