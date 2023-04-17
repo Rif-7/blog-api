@@ -3,8 +3,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
-import Login from "./components/Home";
+import Login from "./components/Login";
 import SignUp from "./components/SignUp";
+import Post from "./components/Post";
 
 function App() {
   const [user, setUser] = useState("");
@@ -19,9 +20,12 @@ function App() {
     <BrowserRouter>
       <Navbar user={user} setUser={setUser} />
       <Routes>
-        <Route path="blog-api" element={<Home />}></Route>
+        <Route path="blog-api" element={<Home user={user} />}></Route>
         <Route path="/" element={<Navigate replace to="blog-api" />}></Route>
-        <Route path="/blog-api/posts/:postId" element={<div>Post</div>}></Route>
+        <Route
+          path="/blog-api/posts/:postId"
+          element={<Post user={user} />}
+        ></Route>
         <Route
           path="/blog-api/login"
           element={<Login setUser={setUser} user={user} />}

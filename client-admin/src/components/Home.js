@@ -1,22 +1,47 @@
 import { useEffect, useState } from "react";
-import { getPublishedPosts } from "../helpers";
-import { Link } from "react-router-dom";
+import { getPublishedPosts, getUnpublishedPosts } from "../helpers";
+import { Link, Navigate } from "react-router-dom";
 
-function Home() {
+function Home(props) {
+  const { user } = props;
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    getPublishedPosts(setPosts);
+    if (user) getPublishedPosts(setPosts);
   }, []);
+
+  if (!user) {
+    return <Navigate replace to="/blog-api/login" />;
+  }
+
+  const onFilterChange = (e) => {
+    setPosts([]);
+    const value = e.target.value;
+    if (value === "published") {
+      getPublishedPosts(setPosts);
+    } else {
+      getUnpublishedPosts(setPosts);
+    }
+  };
 
   return (
     <div className="home">
       <div className="post-list">
-        <div className="header">Posts: </div>
+        <div className="header">
+          Posts:
+          <select
+            defaultChecked="published"
+            className="filter"
+            onChange={onFilterChange}
+          >
+            <option value="published">Published</option>
+            <option value="unpublished">Unpublished</option>
+          </select>
+        </div>
         {posts.length > 0 ? (
           posts.map((post) => <PostCard post={post} key={post.id}></PostCard>)
         ) : (
-          <div>Loading</div>
+          <h1>Loading</h1>
         )}
       </div>
     </div>

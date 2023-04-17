@@ -36,7 +36,7 @@ function Navbar(props) {
   return (
     <nav>
       <Link to="/blog-api" className="header">
-        Personal Blog
+        Personal Blog's Admin Page
       </Link>
       <ul className="nav-links">{renderedList}</ul>
     </nav>
