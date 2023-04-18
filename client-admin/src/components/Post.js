@@ -18,6 +18,7 @@ function Post(props) {
 
   useEffect(() => {
     getPostsAndComments();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getPostsAndComments = async () => {

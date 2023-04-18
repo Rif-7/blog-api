@@ -8,6 +8,7 @@ exports.comment_list = async (req, res, next) => {
     if (!post) {
       return res.status(404).json({ error: { message: "Post not found" } });
     }
+
     const comments = await Comment.find({ post: post._id })
       .sort({ timestamp: -1 })
       .populate("user", "username");
@@ -84,13 +85,11 @@ exports.comment_delete = async (req, res, next) => {
     }
 
     if (!req.user.isAdmin && req.user.id !== comment.user.id) {
-      return res
-        .status(403)
-        .json({
-          error: {
-            message: "User is not the authorized to delete this comment",
-          },
-        });
+      return res.status(403).json({
+        error: {
+          message: "User is not the authorized to delete this comment",
+        },
+      });
     }
 
     await comment.deleteOne();
