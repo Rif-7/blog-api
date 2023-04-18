@@ -4,6 +4,7 @@ import {
   getPostComments,
   postComment,
   deleteComment,
+  updatePostStatus,
 } from "../helpers";
 import { useEffect, useState } from "react";
 
@@ -22,6 +23,16 @@ function Post(props) {
     await getPostComments(setComments, postId);
   };
 
+  const onUpdatePost = async (e) => {
+    e.target.disabled = true;
+    setPost({});
+    const res = await updatePostStatus(setPost, postId);
+    if (!res.error) {
+      getPostsAndComments();
+    }
+    e.target.disabled = false;
+  };
+
   if (!post) {
     return <div className="post-container">Loading...</div>;
   }
@@ -36,6 +47,16 @@ function Post(props) {
         <div className="title">{post.title}</div>
         <div className="timestamp">{post.time_formatted}</div>
       </div>
+      {post.isPublished ? (
+        <button className="status" onClick={onUpdatePost}>
+          Unpublish Post
+        </button>
+      ) : (
+        <button className="status" onClick={onUpdatePost}>
+          Publish Post
+        </button>
+      )}
+
       <div className="content">{post.content}</div>
       <Comments
         comments={comments}
@@ -112,7 +133,6 @@ function Comments(props) {
             <Comment
               comment={comment}
               key={comment.id}
-              currUser={user}
               onCommentDelete={onCommentDelete}
             ></Comment>
           ))}
@@ -123,7 +143,7 @@ function Comments(props) {
 }
 
 function Comment(props) {
-  const { currUser, onCommentDelete } = props;
+  const { onCommentDelete } = props;
   const { user, content, time_formatted, id } = props.comment;
 
   const onDelete = (e) => {
@@ -138,11 +158,9 @@ function Comment(props) {
           {user.username},
         </span>
         <span className="timestamp">{time_formatted}</span>
-        {currUser === user.username ? (
-          <button className="delete-btn" onClick={onDelete}>
-            Delete
-          </button>
-        ) : null}
+        <button className="delete-btn" onClick={onDelete}>
+          Delete
+        </button>
       </div>
       <div className="text">{content}</div>
     </div>

@@ -110,6 +110,21 @@ nav ul {
 
 }
 
+.post-container .status {
+  font-family: monospace;
+  background-color: white;
+  border: none;
+  align-self: flex-start;
+  color:cornflowerblue;
+  font-size: 20px;
+  padding: 0px;
+  margin-bottom: 4px;
+}
+
+.post-container .status:hover {
+  text-decoration: underline;
+}
+
 .comment-field {
   margin-top: 10px;
   padding: 15px;
@@ -180,7 +195,7 @@ nav ul {
 .login-field button, .comment-form button {
   width: 100px;
   font-size: 22px;
-  font-family: inherit;
+  font-family: monospace;
   background-color: aliceblue;
   font-weight: 500;
   border-radius: 5px;

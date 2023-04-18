@@ -10,10 +10,6 @@ function Home(props) {
     if (user) getPublishedPosts(setPosts);
   }, []);
 
-  if (!user) {
-    return <Navigate replace to="/blog-api/login" />;
-  }
-
   const onFilterChange = (e) => {
     setPosts([]);
     const value = e.target.value;
@@ -23,6 +19,10 @@ function Home(props) {
       getUnpublishedPosts(setPosts);
     }
   };
+
+  if (!user) {
+    return <Navigate replace to="/blog-api/login" />;
+  }
 
   return (
     <div className="home">

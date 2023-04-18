@@ -52,6 +52,36 @@ const getSinglePost = async (setPost, id) => {
   }
 };
 
+const updatePostStatus = async (setPost, id) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("User is not authenticated");
+      return;
+    }
+
+    const url = apiUrl + "/posts/" + id;
+    const response = await fetch(url, {
+      method: "PUT",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    let res;
+    if (response === "Unauthorized") {
+      res = { error: { message: "User if not authorized" } };
+    } else {
+      res = await response.json();
+    }
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const getPostComments = async (setComments, id) => {
   try {
     const url = apiUrl + "/posts/" + id + "/comments";
@@ -180,6 +210,7 @@ export {
   getPublishedPosts,
   getUnpublishedPosts,
   getSinglePost,
+  updatePostStatus,
   getPostComments,
   login,
   postComment,
