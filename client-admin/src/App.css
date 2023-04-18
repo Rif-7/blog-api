@@ -35,7 +35,7 @@ nav .username {
   text-transform: capitalize;
 }
 
-.post-list, .post-container, .login-field, .route-error {
+.post-list, .post-container, .form-field, .route-error {
   margin: 50px;
 }
 
@@ -46,7 +46,7 @@ nav .username {
   gap: 20px;
 }
 
-.post-list .header, .login-field .header {
+.post-list .header, .form-field .header {
   font-family: "Suwannaphum";
   font-size: 30px;
   padding-bottom: 15px;
@@ -70,7 +70,7 @@ nav .username {
 
 .post-card {
   display: grid;
-  grid-template-columns: 300px 1fr 300px;
+  grid-template-columns: 500px 1fr 300px;
   font-size: 22px;
 }
 
@@ -165,7 +165,7 @@ nav .username {
   margin-left: 50px;
 }
 
-.login-field {
+.form-field {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -174,14 +174,14 @@ nav .username {
   font-size: 22px;
 }
 
-.login-field .form-group {
+.form-field .form-group {
   display: flex;
   flex-direction: column;
   gap: 4px;
   align-items: flex-start;
 }
 
-.login-field input {
+.form-field input {
   outline: none;
   border: none;
   border-bottom: 2px solid black;
@@ -192,11 +192,16 @@ nav .username {
   padding-left: 10px;
 }
 
-.login-field input:focus {
+.form-field textarea {
+  font-size: 20px;
+  font-family: monospace;
+}
+
+.form-field input:focus {
   background-color: aliceblue;
 }
 
-.login-field button, .comment-form button {
+.form-field button, .comment-form button {
   width: 100px;
   font-size: 22px;
   font-family: monospace;
@@ -205,11 +210,11 @@ nav .username {
   border-radius: 5px;
 }
 
-.login-field button:hover, .comment-form button:hover {
+.form-field button:hover, .comment-form button:hover {
   box-shadow: -5px 5px 5px black;
 }
 
-.login-field .error-item {
+.form-field .error-item {
   color: red;
 }
 

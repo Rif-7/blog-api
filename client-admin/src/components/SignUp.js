@@ -37,7 +37,7 @@ function SignUp(props) {
   }
 
   return (
-    <form className="login-field" onSubmit={submitForm} disabled={isSubmitting}>
+    <form className="form-field" onSubmit={submitForm} disabled={isSubmitting}>
       <div className="header">Sign Up</div>
       <div className="form-group">
         <label htmlFor="username">Username: </label>

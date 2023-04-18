@@ -1,5 +1,39 @@
 const apiUrl = "http://localhost:4000";
 
+const createPost = async (title, content) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("User is not authenticated");
+      return;
+    }
+
+    const response = await fetch(apiUrl + "/posts", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        title,
+        content,
+      }),
+    });
+
+    let res;
+    if (response === "Unauthorized") {
+      res = { error: [{ msg: "User is not authorized to create posts" }] };
+    } else {
+      res = await response.json();
+    }
+
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const getPublishedPosts = async (setPosts) => {
   try {
     const response = await fetch(apiUrl + "/posts/", {
@@ -207,6 +241,7 @@ const deleteComment = async (postId, commentId) => {
 };
 
 export {
+  createPost,
   getPublishedPosts,
   getUnpublishedPosts,
   getSinglePost,

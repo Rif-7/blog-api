@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Post from "./components/Post";
+import NewPost from "./components/NewPost";
 
 function App() {
   const [user, setUser] = useState("");
@@ -29,6 +30,10 @@ function App() {
         <Route
           path="/blog-api/login"
           element={<Login setUser={setUser} user={user} />}
+        ></Route>
+        <Route
+          path="/blog-api/new-post"
+          element={<NewPost user={user} />}
         ></Route>
         <Route
           path="/blog-api/sign-up"
