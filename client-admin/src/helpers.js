@@ -34,6 +34,30 @@ const createPost = async (title, content) => {
   }
 };
 
+const deletePost = async (postId) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("User is not authenticated");
+      return;
+    }
+    const url = apiUrl + "/posts/" + postId;
+    const response = await fetch(url, {
+      method: "DELETE",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    const res = (await response).json();
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const getPublishedPosts = async (setPosts) => {
   try {
     const response = await fetch(apiUrl + "/posts/", {
@@ -242,6 +266,7 @@ const deleteComment = async (postId, commentId) => {
 
 export {
   createPost,
+  deletePost,
   getPublishedPosts,
   getUnpublishedPosts,
   getSinglePost,

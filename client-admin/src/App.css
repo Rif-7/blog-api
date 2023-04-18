@@ -67,7 +67,6 @@ nav .username {
 }
 
 
-
 .post-card {
   display: grid;
   grid-template-columns: 500px 1fr 300px;
@@ -114,7 +113,7 @@ nav .username {
 
 }
 
-.post-container .status {
+.post-container .status, .post-container .delete-post {
   font-family: monospace;
   background-color: white;
   border: none;
@@ -125,8 +124,18 @@ nav .username {
   margin-bottom: 4px;
 }
 
-.post-container .status:hover {
+.post-container .button-group button:hover {
   text-decoration: underline;
+}
+
+
+.post-container .button-group {
+  display: flex;
+  gap: 20px;
+}
+
+.post-container .button-group .delete-post {
+  color: red;
 }
 
 .comment-field {

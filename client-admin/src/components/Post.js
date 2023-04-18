@@ -1,10 +1,11 @@
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import {
   getSinglePost,
   getPostComments,
   postComment,
   deleteComment,
   updatePostStatus,
+  deletePost,
 } from "../helpers";
 import { useEffect, useState } from "react";
 
@@ -13,10 +14,11 @@ function Post(props) {
   const { user } = props;
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
+  const [isDeleted, setIsDeleted] = useState(false);
 
   useEffect(() => {
     getPostsAndComments();
-  });
+  }, []);
 
   const getPostsAndComments = async () => {
     await getSinglePost(setPost, postId);
@@ -33,6 +35,17 @@ function Post(props) {
     e.target.disabled = false;
   };
 
+  const onDeletePost = async (e) => {
+    e.target.disabled = true;
+    const res = await deletePost(postId);
+    if (res.error) {
+      alert(res.error);
+    } else {
+      setIsDeleted(true);
+    }
+    e.target.disabled = false;
+  };
+
   if (!post) {
     return <div className="post-container">Loading...</div>;
   }
@@ -41,21 +54,24 @@ function Post(props) {
     return <div className="post-container">{post.error.message}</div>;
   }
 
+  if (isDeleted) {
+    return <Navigate replace to="/blog-api" />;
+  }
+
   return (
     <div className="post-container">
       <div className="top-group">
         <div className="title">{post.title}</div>
         <div className="timestamp">{post.time_formatted}</div>
       </div>
-      {post.isPublished ? (
+      <div className="button-group">
         <button className="status" onClick={onUpdatePost}>
-          Unpublish Post
+          {post.isPublished ? "Unpublish Post" : "Publish Post"}
         </button>
-      ) : (
-        <button className="status" onClick={onUpdatePost}>
-          Publish Post
+        <button className="delete-post" onClick={onDeletePost}>
+          Delete Post
         </button>
-      )}
+      </div>
 
       <div className="content">{post.content}</div>
       <Comments

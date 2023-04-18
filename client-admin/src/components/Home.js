@@ -9,6 +9,7 @@ function Home(props) {
 
   useEffect(() => {
     getInitialPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getInitialPosts = async () => {
