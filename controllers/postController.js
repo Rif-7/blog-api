@@ -46,16 +46,18 @@ exports.post_create = [
     if (!req.user || !req.user.isAdmin) {
       return res
         .status(401)
-        .json({ error: { message: "User isn't authorized to create posts" } });
+        .json({ error: [{ msg: "User is not authorized to create posts" }] });
     }
 
     try {
-      const post = new Post({
+      let post = new Post({
         title: req.body.title,
         content: req.body.content,
       });
-      await post.save();
-      return res.status(200).json({ message: "Post created successfully" });
+      post = await post.save();
+      return res
+        .status(200)
+        .json({ message: "Post created successfully", id: post.id });
     } catch (err) {
       return next(err);
     }

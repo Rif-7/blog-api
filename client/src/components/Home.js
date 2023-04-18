@@ -29,10 +29,12 @@ function PostCard(props) {
     0,
     content.length >= 30 ? 30 : content.length
   );
+  const titleSlice = title.slice(0, title.length >= 25 ? 25 : title.length);
+
   return (
     <div className="post-card">
       <Link to={"/blog-api" + url} className="title">
-        {title}
+        {titleSlice}
       </Link>
       <span className="content">{contentSlice}...</span>
       <span className="timestamp">{time_formatted}</span>

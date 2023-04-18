@@ -52,7 +52,7 @@ nav ul {
 
 .post-card {
   display: grid;
-  grid-template-columns: 300px 1fr 300px;
+  grid-template-columns: 500px 1fr 300px;
   font-size: 22px;
 }
 
