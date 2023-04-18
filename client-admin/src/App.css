@@ -31,6 +31,10 @@ nav ul {
   font-size: 18px;
 }
 
+nav .username {
+  text-transform: capitalize;
+}
+
 .post-list, .post-container, .login-field, .route-error {
   margin: 50px;
 }

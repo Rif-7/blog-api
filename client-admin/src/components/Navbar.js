@@ -17,6 +17,9 @@ function Navbar(props) {
         </Link>
       </li>
       <li>
+        <Link to="/blog-api/new-post">New Post</Link>
+      </li>
+      <li>
         <Link to="/blog-api" onClick={logoutUser}>
           Logout
         </Link>

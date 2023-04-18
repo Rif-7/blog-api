@@ -5,19 +5,27 @@ import { Link, Navigate } from "react-router-dom";
 function Home(props) {
   const { user } = props;
   const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (user) getPublishedPosts(setPosts);
+    getInitialPosts();
   }, []);
 
-  const onFilterChange = (e) => {
+  const getInitialPosts = async () => {
+    if (user) await getPublishedPosts(setPosts);
+    setIsLoading(false);
+  };
+
+  const onFilterChange = async (e) => {
     setPosts([]);
+    setIsLoading(true);
     const value = e.target.value;
     if (value === "published") {
-      getPublishedPosts(setPosts);
+      await getPublishedPosts(setPosts);
     } else {
-      getUnpublishedPosts(setPosts);
+      await getUnpublishedPosts(setPosts);
     }
+    setIsLoading(false);
   };
 
   if (!user) {
@@ -38,10 +46,11 @@ function Home(props) {
             <option value="unpublished">Unpublished</option>
           </select>
         </div>
+
         {posts.length > 0 ? (
           posts.map((post) => <PostCard post={post} key={post.id}></PostCard>)
         ) : (
-          <h1>Loading</h1>
+          <h1>{isLoading ? "Loading" : "There are no posts currently"}</h1>
         )}
       </div>
     </div>
