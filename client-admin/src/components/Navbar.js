@@ -12,15 +12,15 @@ function Navbar(props) {
   const renderedList = user ? (
     <>
       <li>
-        <Link to="/blog-api" className="username">
+        <Link to="/blog-api-client" className="username">
           Signed in as {user}
         </Link>
       </li>
       <li>
-        <Link to="/blog-api/new-post">New Post</Link>
+        <Link to="/blog-api-client/new-post">New Post</Link>
       </li>
       <li>
-        <Link to="/blog-api" onClick={logoutUser}>
+        <Link to="/blog-api-client" onClick={logoutUser}>
           Logout
         </Link>
       </li>
@@ -28,17 +28,17 @@ function Navbar(props) {
   ) : (
     <>
       <li>
-        <Link to="/blog-api/login">Login</Link>
+        <Link to="/blog-api-client/login">Login</Link>
       </li>
       <li>
-        <Link to="/blog-api/sign-up">Sign Up</Link>
+        <Link to="/blog-api-client/sign-up">Sign Up</Link>
       </li>
     </>
   );
 
   return (
     <nav>
-      <Link to="/blog-api" className="header">
+      <Link to="/blog-api-client" className="header">
         Personal Blog's Admin Page
       </Link>
       <ul className="nav-links">{renderedList}</ul>

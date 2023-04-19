@@ -30,7 +30,7 @@ function Home(props) {
   };
 
   if (!user) {
-    return <Navigate replace to="/blog-api/login" />;
+    return <Navigate replace to="/blog-api-client/login" />;
   }
 
   return (
@@ -67,7 +67,7 @@ function PostCard(props) {
   const titleSlice = title.slice(0, title.length >= 25 ? 25 : title.length);
   return (
     <div className="post-card">
-      <Link to={"/blog-api" + url} className="title">
+      <Link to={"/blog-api-client" + url} className="title">
         {titleSlice}
       </Link>
       <span className="content">{contentSlice}...</span>
