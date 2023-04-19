@@ -1,6 +1,6 @@
 {
   "name": "client-admin",
-  "homepage": "https://rif-7.github.io/blog-api/",
+  "homepage": "https://rif-7.github.io/blog-api-client/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
