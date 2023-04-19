@@ -56,7 +56,7 @@ function Post(props) {
   }
 
   if (isDeleted) {
-    return <Navigate replace to="/blog-api" />;
+    return <Navigate replace to="/blog-api-client" />;
   }
 
   return (

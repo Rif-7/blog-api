@@ -26,11 +26,11 @@ function NewPost(props) {
   };
 
   if (!user) {
-    return <Navigate replace to="/blog-api/login" />;
+    return <Navigate replace to="/blog-api-client/login" />;
   }
 
   if (postId) {
-    return <Navigate replace to={"/blog-api/posts/" + postId} />;
+    return <Navigate replace to={"/blog-api-client/posts/" + postId} />;
   }
 
   return (

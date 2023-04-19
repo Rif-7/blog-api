@@ -33,7 +33,7 @@ function SignUp(props) {
   };
 
   if (user) {
-    return <Navigate replace to="/blog-api" />;
+    return <Navigate replace to="/blog-api-client" />;
   }
 
   return (

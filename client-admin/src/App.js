@@ -21,22 +21,25 @@ function App() {
     <BrowserRouter>
       <Navbar user={user} setUser={setUser} />
       <Routes>
-        <Route path="blog-api" element={<Home user={user} />}></Route>
-        <Route path="/" element={<Navigate replace to="blog-api" />}></Route>
+        <Route path="blog-api-client" element={<Home user={user} />}></Route>
         <Route
-          path="/blog-api/posts/:postId"
+          path="/"
+          element={<Navigate replace to="blog-api-client" />}
+        ></Route>
+        <Route
+          path="/blog-api-client/posts/:postId"
           element={<Post user={user} />}
         ></Route>
         <Route
-          path="/blog-api/login"
+          path="/blog-api-client/login"
           element={<Login setUser={setUser} user={user} />}
         ></Route>
         <Route
-          path="/blog-api/new-post"
+          path="/blog-api-client/new-post"
           element={<NewPost user={user} />}
         ></Route>
         <Route
-          path="/blog-api/sign-up"
+          path="/blog-api-client/sign-up"
           element={<SignUp setUser={setUser} user={user} />}
         ></Route>
         <Route
