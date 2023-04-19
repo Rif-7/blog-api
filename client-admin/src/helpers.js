@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost:4000";
+const apiUrl = "https://blog-api-production-e966.up.railway.app";
 
 const createPost = async (title, content) => {
   try {
